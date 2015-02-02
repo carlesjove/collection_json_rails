@@ -25,11 +25,18 @@ class PostsController < ApplicationController
   end
 ```
 
-## TO-DO Features
 
 #### One step serialization:
 
+You can respond with Collection+JSON witho no effort, using `render`.
+
 ```ruby
+class PostSerializer < CollectionJson::Serializer
+  items do
+    attributes :title, :body
+  end
+end
+
 class PostsController < ApplicationController
   include CollectionJson::Rails::Render
 
@@ -38,7 +45,10 @@ class PostsController < ApplicationController
 
     render json: @posts, status: :ok
   end
+end
 ```
+
+## TO-DO Features
 
 #### Generators:
 
