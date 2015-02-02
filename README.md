@@ -1,42 +1,44 @@
 CollectionJson Rails
 ====================
 
-This gem will add Rails specific features to [CollectionJson
+Add Rails specific features to [CollectionJson
 Serializer](https://github.com/carlesjove/collection_json_serializer).
 
-## Features
+## Installation
 
-#### Parsing of incoming templates:
-
-It integrates with strong parameters. `accept_template!` accepts one argument:
-the name of the model. That is what you would usually pass at the `require()`
-method of strong parameters. This will parse the incoming template as params,
-and return the result of `params.require(:model)`. Then, you can just proceed as
-usual.
+Add this line to your application's Gemfile:
 
 ```ruby
-class PostsController < ApplicationController
-  include CollectionJson::Rails::AcceptTemplate
-
-  private
-
-  def post_params
-    accept_template!(:post).permit(:title)
-  end
+gem 'collection_json_rails'
 ```
 
+And then execute:
 
-#### One step serialization:
+    $ bundle
 
-You can respond with Collection+JSON witho no effort, using `render`.
+Or install it yourself as:
+
+    $ gem install collection_json_rails
+
+## Usage
+
+You just need to create serializers for your models. Here's an example:
 
 ```ruby
 class PostSerializer < CollectionJson::Serializer
   items do
     attributes :title, :body
   end
-end
 
+  template :title, :body
+end
+```
+
+#### Responding with Collection+JSON
+
+Now you can respond with Collection+JSON using the regular `render`:
+
+```ruby
 class PostsController < ApplicationController
   include CollectionJson::Rails::Render
 
@@ -46,6 +48,24 @@ class PostsController < ApplicationController
     render json: @posts, status: :ok
   end
 end
+```
+
+
+#### Accepting templates:
+
+Collection+JSON supports write templates (YEAH!). You can accept them easily by using `accept_template!` in a similar fashion as you'd use strong parameters.
+
+`accept_template` takes one argument: the name of the model (that's what you would usually pass to `require()` when using strong parameters). Then, you can proceed as usual and whitelist attributes with `permit`.
+
+```ruby
+class PostsController < ApplicationController
+  include CollectionJson::Rails::AcceptTemplate
+
+  private
+
+  def post_params
+    accept_template!(:post).permit(:title, :body)
+  end
 ```
 
 ## TO-DO Features
@@ -70,23 +90,6 @@ class PostSerializer < CollectionJson::Serializer
   items do
     href :post_url, :self
 ```
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'collection_json_rails'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install collection_json_rails
-
 
 ## Contributing
 
