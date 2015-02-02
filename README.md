@@ -1,4 +1,4 @@
-CollectionJson Rails
+Collection+Json Rails
 ====================
 
 Add Rails specific features to [CollectionJson
@@ -19,6 +19,9 @@ And then execute:
 Or install it yourself as:
 
     $ gem install collection_json_rails
+
+
+That's all you need. CollectionJson::Serializer is included ;-)
 
 ## Usage
 
@@ -55,7 +58,11 @@ end
 
 Collection+JSON supports write templates (YEAH!). You can accept them easily by using `accept_template!` in a similar fashion as you'd use strong parameters.
 
-`accept_template` takes one argument: the name of the model (that's what you would usually pass to `require()` when using strong parameters). Then, you can proceed as usual and whitelist attributes with `permit`.
+`accept_template!` takes one argument: the name of the model (that's what you'd usually pass to `require` when using strong parameters). Then, you can proceed as usual and whitelist attributes with `permit`.
+
+Note: Noticed the exclamation mark? This means that `accept_template!` rewrites
+`params`. Should `params[:model]` be present, it'd be rewritten with template's
+attributes. All other attributes of `params` are untouched.
 
 ```ruby
 class PostsController < ApplicationController
