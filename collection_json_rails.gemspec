@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{Collection+JSON Serializers with the Rails touch}
   spec.description   = %q{Adds Rails specific funcionalitaties for an enjoyable
   experience}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/carlesjove/collection_json_rails"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
@@ -19,10 +19,10 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "actionpack"
-  spec.add_dependency "railties"
+  spec.add_dependency "actionpack", "~> 4.0"
+  spec.add_dependency "railties", "~> 4.0"
 
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "minitest"
+  spec.add_development_dependency "minitest", "~> 5.0"
 end
