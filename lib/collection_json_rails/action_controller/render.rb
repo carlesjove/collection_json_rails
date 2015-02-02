@@ -2,13 +2,20 @@ module CollectionJson::Rails
   module Render
 
     def render(options)
-      resource = options.fetch(:json)
-      status = options[:status] || :ok
-
-      super json: serialize(resource), status: status
+      super options_for_render(options)
     end
 
     private
+
+    def options_for_render(options)
+      result = options
+      if options[:json]
+        result[:json] = serialize(options[:json])
+        result[:status] = options[:status] || :ok
+      end
+
+      result
+    end
 
     def serialize(resource)
       serializer_class = serializer_class_of(resource)
