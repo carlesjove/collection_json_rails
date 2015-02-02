@@ -3,7 +3,7 @@ module CollectionJson::Rails
 
     def render(options)
       resource = options.fetch(:json)
-      status = options.fetch(:status) || :ok
+      status = options[:status] || :ok
 
       super json: serialize(resource), status: status
     end
@@ -11,12 +11,15 @@ module CollectionJson::Rails
     private
 
     def serialize(resource)
-      resource_class = serializer_for(resource)
-      serializer_class = "#{resource_class}Serializer".safe_constantize
+      serializer_class = serializer_class_of(resource)
 
-      serializer = serializer_class.new(resource)
-      collection = CollectionJson::Serializer::Builder.new(serializer)
-      collection.pack
+      if serializer_class.respond_to?(:new)
+        serializer = serializer_class.new(resource)
+        collection = CollectionJson::Serializer::Builder.new(serializer)
+        collection.pack
+      else
+        resource
+      end
     end
 
     # This should probably live at CollectionJson::Serializer
@@ -26,6 +29,11 @@ module CollectionJson::Rails
       else
         resource.class.name
       end
+    end
+
+    def serializer_class_of(resource)
+      resource_class = serializer_for(resource)
+      "#{resource_class}Serializer".safe_constantize
     end
   end
 end

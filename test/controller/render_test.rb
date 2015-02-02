@@ -20,6 +20,10 @@ class PostsController < ActionController::Base
 
     render json: post, status: :ok
   end
+
+  def without_serializer
+    render json: { my_hash: "should be jsonified too" }
+  end
 end
 
 class TestRender < ActionController::TestCase
@@ -43,6 +47,12 @@ class TestRender < ActionController::TestCase
     get :index, {}
 
     assert_equal expected.to_json, response.body
+  end
+
+  def test_that_objects_without_serializer_are_rendered_as_plain_json
+    get :without_serializer
+
+    assert_response :ok
   end
 end
 
