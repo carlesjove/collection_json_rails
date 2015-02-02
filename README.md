@@ -6,6 +6,27 @@ Serializer](https://github.com/carlesjove/collection_json_serializer).
 
 ## Features
 
+#### Parsing of incoming templates:
+
+It integrates with strong parameters. `accept_template!` accepts one argument:
+the name of the model. That is what you would usually pass at the `require()`
+method of strong parameters. This will parse the incoming template as params,
+and return the result of `params.require(:model)`. Then, you can just proceed as
+usual.
+
+```ruby
+class PostsController < ApplicationController
+  include CollectionJson::Rails::AcceptTemplate
+
+  private
+
+  def post_params
+    accept_template!(:post).permit(:title)
+  end
+```
+
+## TO-DO Features
+
 #### One step serialization:
 
 ```ruby
@@ -16,17 +37,6 @@ class PostsController < ApplicationController
     @posts = Post.all
 
     render json: @posts, status: :ok
-  end
-```
-
-#### Parsing on incoming templates:
-
-```ruby
-class PostsController < ApplicationController
-  private
-
-  def post_params
-    cj_template!(:post).permit(:title)
   end
 ```
 
