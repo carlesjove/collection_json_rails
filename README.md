@@ -75,16 +75,22 @@ class PostsController < ApplicationController
   end
 ```
 
-## TO-DO Features
-
 #### Generators:
 
-```bash
-$ rails g cj:serializer post
-# => app/serializers/post_serializer.rb
+`$ rails g cj serializer post title body`
+
+```ruby
+# app/serializers/post_serializer.rb
+
+class PostSerializer < CollectionJson::Serializer
+  items do
+    attributes :title, :body
+  end
+end
 ```
 
-Wonder: should be invocated by scaffold, models, etc. generators?
+
+## TO-DO Features
 
 #### URLs helpers
 
