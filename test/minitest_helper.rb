@@ -7,6 +7,8 @@ require 'collection_json_rails'
 
 require 'minitest/autorun'
 
+require 'support/test_app'
+
 module ActionController
   SharedTestRoutes = ActionDispatch::Routing::RouteSet.new
   SharedTestRoutes.draw do
