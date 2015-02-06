@@ -96,9 +96,11 @@ Getting routes in your serializers is easy as shit. Simply pass the method name 
 ```ruby
 class PostSerializer < CollectionJson::Serializer
   href :posts_url
+  links dashboard: { href: :dashboard_url }
 
   items do
     href :post_url
+    link comments: { href: :comments_url }
 ```
 
 ## Contributing
