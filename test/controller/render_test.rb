@@ -1,26 +1,6 @@
 require 'minitest_helper'
 
-class Post
-  attr_accessor :title, :body
-end
-
-class PostSerializer < CollectionJson::Serializer
-  items do
-    attributes :title, :body
-  end
-end
-
 class PostsController < ActionController::Base
-  include CollectionJson::Rails::Render
-
-  def index
-    post = Post.new
-    post.title = "My title"
-    post.body = "My first post"
-
-    render json: post, status: :ok
-  end
-
   def without_serializer
     render json: { my_hash: "should be jsonified too" }
   end
@@ -37,8 +17,10 @@ class TestRender < ActionController::TestCase
     expected = {
       collection: {
         version: "1.0",
+        href: "http://test.com/posts",
         items: [
           {
+            href: "http://test.com/posts/my-pretty-url",
             data: [
               { name: "title", value: "My title" },
               { name: "body", value: "My first post" }

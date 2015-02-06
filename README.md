@@ -89,19 +89,16 @@ class PostSerializer < CollectionJson::Serializer
 end
 ```
 
+#### URL helpers
 
-## TO-DO Features
-
-#### URLs helpers
-
-No more fighting with routes generation:
+Getting routes in your serializers is easy as shit. Simply pass the method name as a symbol. No need to reference the object.
 
 ```ruby
 class PostSerializer < CollectionJson::Serializer
   href :posts_url
 
   items do
-    href :post_url, :self
+    href :post_url
 ```
 
 ## Contributing
