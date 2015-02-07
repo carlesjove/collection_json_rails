@@ -12,6 +12,9 @@ module CollectionJson::Rails
       if options[:json]
         result[:json] = serialize(options[:json])
         result[:status] = options[:status] || :ok
+        if is_collection_json?(result[:json])
+          result[:content_type] = CollectionJson::MIME_TYPE
+        end
       end
 
       result
@@ -41,6 +44,10 @@ module CollectionJson::Rails
     def serializer_class_of(resource)
       resource_class = serializer_for(resource)
       "#{resource_class}Serializer".safe_constantize
+    end
+
+    def is_collection_json?(hash)
+      hash.key?(:collection)
     end
   end
 end
