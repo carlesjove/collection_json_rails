@@ -30,7 +30,8 @@ You just need to create serializers for your models. Here's an example:
 ```ruby
 class PostSerializer < CollectionJson::Serializer
   items do
-    attributes :title, :body
+    attribute :title
+    attribute :body
   end
 
   template :title, :body
@@ -84,7 +85,8 @@ class PostsController < ApplicationController
 
 class PostSerializer < CollectionJson::Serializer
   items do
-    attributes :title, :body
+    attribute :title
+    attribute :body
   end
 end
 ```
@@ -96,7 +98,7 @@ Getting routes in your serializers is easy as shit. Simply pass the method name 
 ```ruby
 class PostSerializer < CollectionJson::Serializer
   href :posts_url
-  links dashboard: { href: :dashboard_url }
+  link dashboard: { href: :dashboard_url }
 
   items do
     href :post_url
@@ -105,8 +107,5 @@ class PostSerializer < CollectionJson::Serializer
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/collection_json_rails/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+Please, all Pull Requests should point to `dev` branch.
+
