@@ -27,8 +27,8 @@ class PostSerializer < CollectionJson::Serializer
   end
 
   href :posts_url
-  links posts: { href: :posts_url }
-  links external: { href: "http://example.com" }
+  link posts: { href: :posts_url }
+  link external: { href: "http://example.com" }
 end
 
 class PostsController < ActionController::Base
