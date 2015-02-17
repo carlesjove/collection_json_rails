@@ -1,6 +1,10 @@
 class UserSerializer < CollectionJson::Serializer
     items do
-    attributes :first_name, :email
+    
+    attribute :first_name
+    
+    attribute :email
+    
   end
   end
 

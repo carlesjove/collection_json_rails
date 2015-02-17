@@ -18,7 +18,8 @@ class SerializerGeneratorTest < Rails::Generators::TestCase
 
     assert_file "app/serializers/user_serializer.rb" do |serializer|
       assert_match /items do/, serializer
-      assert_match /attributes :first_name, :email/, serializer
+      assert_match /attribute :first_name/, serializer
+      assert_match /attribute :email/, serializer
       assert_match /end/, serializer
     end
   end

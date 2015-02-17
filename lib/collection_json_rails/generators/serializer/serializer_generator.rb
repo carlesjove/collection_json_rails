@@ -13,12 +13,6 @@ module Rails
                  File.join("app/serializers", class_path,
                  "#{file_name}_serializer.rb")
       end
-
-      private
-
-      def item_attributes
-        attributes.map { |a| ":#{a.name}" }
-      end
     end
   end
 end
