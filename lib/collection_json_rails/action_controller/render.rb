@@ -47,7 +47,7 @@ module CollectionJson::Rails
     end
 
     def is_collection_json?(hash)
-      hash.key?(:collection)
+      hash.key?(:collection) if hash.respond_to? :key
     end
   end
 end

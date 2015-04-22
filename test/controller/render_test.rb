@@ -5,6 +5,10 @@ class PostsController < ActionController::Base
     render json: { my_hash: "should be jsonified too" }
   end
 
+  def empty_array
+    render json: []
+  end
+
   def without_json
     render nothing: true
   end
@@ -17,6 +21,13 @@ class TestRender < ActionController::TestCase
     get :index, {}
 
     assert_equal "application/vnd.collection+json", response.content_type
+  end
+
+  def test_that_an_empty_array_responds_with_success
+    get :empty_array
+
+    assert_response :ok
+    assert_equal Mime::JSON, response.content_type
   end
 
   def test_that_objects_without_serializer_are_rendered_as_plain_json
