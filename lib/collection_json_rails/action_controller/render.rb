@@ -10,7 +10,7 @@ module CollectionJson::Rails
     def options_for_render(options)
       result = options
       if options[:json]
-        result[:json] = serialize(options[:json])
+        result[:json] = serialize(options[:json], options)
         result[:status] = options[:status] || :ok
         if is_collection_json?(result[:json])
           result[:content_type] = CollectionJson::MIME_TYPE
@@ -20,8 +20,8 @@ module CollectionJson::Rails
       result
     end
 
-    def serialize(resource)
-      serializer_class = serializer_class_of(resource)
+    def serialize(resource, options = {})
+      serializer_class = options[:serializer] || serializer_class_of(resource)
 
       if serializer_class.respond_to?(:new)
         serializer = serializer_class.new(resource)

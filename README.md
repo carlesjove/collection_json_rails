@@ -9,7 +9,7 @@ Serializer](https://github.com/carlesjove/collection_json_serializer).
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'collection_json_rails'
+gem 'collection_json_rails', '~> 0.4.2'
 ```
 
 And then execute:
@@ -54,6 +54,13 @@ class PostsController < ApplicationController
 end
 ```
 
+If you use this approach, an empty `Array` will be returned when the collection
+is empty (i.e. when there are no Posts). If you still want to respond with
+Collection+JSON in this scenario, you can provide a `serializer` name:
+
+```ruby
+render json: @posts, serializer: PostSerializer, status: :ok
+```
 
 #### Accepting templates:
 
