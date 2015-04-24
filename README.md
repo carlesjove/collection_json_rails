@@ -9,7 +9,7 @@ Serializer](https://github.com/carlesjove/collection_json_serializer).
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'collection_json_rails'
+gem 'collection_json_rails', '~> 0.4.2'
 ```
 
 And then execute:
