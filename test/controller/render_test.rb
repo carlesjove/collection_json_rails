@@ -9,6 +9,10 @@ class PostsController < ActionController::Base
     render json: []
   end
 
+  def empty_array_with_serializer_name
+    render json: [], serializer: PostSerializer
+  end
+
   def without_json
     render nothing: true
   end
@@ -28,6 +32,13 @@ class TestRender < ActionController::TestCase
 
     assert_response :ok
     assert_equal Mime::JSON, response.content_type
+  end
+
+  def test_that_a_serializer_name_can_be_specified
+    get :empty_array_with_serializer_name
+
+    assert_response :ok
+    assert_equal "application/vnd.collection+json", response.content_type
   end
 
   def test_that_objects_without_serializer_are_rendered_as_plain_json

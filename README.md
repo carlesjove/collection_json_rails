@@ -54,6 +54,13 @@ class PostsController < ApplicationController
 end
 ```
 
+If you use this approach, an empty `Array` will be returned when the collection
+is empty (i.e. when there are no Posts). If you still want to respond with
+Collection+JSON in this scenario, you can provide a `serializer` name:
+
+```ruby
+render json: @posts, serializer: PostSerializer, status: :ok
+```
 
 #### Accepting templates:
 
