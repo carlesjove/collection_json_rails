@@ -16,6 +16,9 @@ class PostsController < ActionController::Base
   def without_json
     render nothing: true
   end
+
+  def rails_magic_render
+  end
 end
 
 class TestRender < ActionController::TestCase
@@ -53,6 +56,14 @@ class TestRender < ActionController::TestCase
 
     assert_response :ok
     assert_equal Mime::TEXT, response.content_type
+  end
+
+  def test_rails_magic_render_behaves_as_usual
+    missing_template = "Missing template posts/rails_magic_render " +
+      "with {:locale=>[:en], :formats=>[:html], :variants=>[], " +
+      ":handlers=>[:erb, :builder, :raw, :ruby]}. Searched in:\n"
+    error = assert_raises(ActionView::MissingTemplate) { get :rails_magic_render }
+    assert_equal missing_template, error.message
   end
 end
 

@@ -1,7 +1,7 @@
 module CollectionJson::Rails
   module Render
 
-    def render(options)
+    def render(options = {})
       super options_for_render(options)
     end
 
